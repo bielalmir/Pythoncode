@@ -1,0 +1,18 @@
+{
+    "STUDENTS": {
+        "stud1": {
+            "NAME": "BHULLA",
+            "roll": 66,
+            "address": "CHINKIPORA"
+        },
+        "stud2": {
+            "NAME": "EGO HATAILA",
+            "roll": 3,
+            "address": "PAGLAPORA"
+        }
+    },
+    "file_counts": {
+        "png_files": 0,
+        "jpg_files": 0
+    }
+}
