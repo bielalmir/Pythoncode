@@ -93,14 +93,7 @@
 
 
 
-import time
 
-x = ("salik is gay")
-y = 100
-while y>0:
-    print(x)
-    y-=1
-    time.sleep(1)
    
 
 

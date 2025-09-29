@@ -1,49 +1,80 @@
 class Cust:
-    type = 'customer'     
+    type = 'customer'   # class variable
+
     def __init__(self, n, mbn, adr, age):
         self.name = n 
         self.mobile = mbn
         self.address = adr
-        self.__age = age 
+        self.__age = age   # private attribute
 
     # Getter
     def get_age(self):
         return self.__age    
+
     # Setter
     def set_age(self, age):
         if int(age) > 0:  
             self.__age = age
         else:
             print("Invalid age. Must be greater than 0.")
-    
+
     def __str__(self):
-        return f'Mr {self.name} lives at {self.address} and you can contact them on {self.mobile} and he is {self.__age} years old\n'
+        return f"Mr {self.name} lives at {self.address}, contact: {self.mobile}, Age: {self.__age}"
 
-test = Cust('Bilal', '9797552622', 'chouadhi', '10')
-test2 = Cust('Owais', '7070707070', 'Polooṇṇda', '5')
-test3 = Cust('Salik', '7078689398', 'israel', '5')
 
-print("Default type:", Cust.type)
+# -------------------------
+# Derived Class: Account
+# -------------------------
+class Account(Cust):
+    def __init__(self, n, mbn, adr, age, acc_no, acc_type="Savings", balance=0.0):
+        # Inherit from Cust
+        super().__init__(n, mbn, adr, age)
+        
+        # Account-specific attributes
+        self.account_number = acc_no
+        self.account_type = acc_type
+        self.balance = balance
 
-print("Before change:")
-print(test.name, test.mobile, test.address, test.type)
-print(test2.name, test2.mobile, test2.address, test2.type)
-print(test3.name, test3.mobile, test3.address, test3.type)
+    # Deposit money
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            print(f"₹{amount} deposited successfully. New balance: ₹{self.balance}")
+        else:
+            print("Deposit amount must be greater than 0.")
 
-# Change attributes
-test.name, test.mobile, test.address, test.type = 'Agent', 'XXX-XXXX-XXX', 'Error 69', 'Stud'
+    # Withdraw money
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("Insufficient balance!")
+        elif amount <= 0:
+            print("Withdrawal amount must be greater than 0.")
+        else:
+            self.balance -= amount
+            print(f"₹{amount} withdrawn successfully. Remaining balance: ₹{self.balance}")
 
-print("\nAfter change:")
-print(test.name, test.mobile, test.address, test.type)
+    # Check balance
+    def check_balance(self):
+        return f"Account Balance for {self.name}: ₹{self.balance}"
 
-# Using getter
-print("\nGetting age of test:", test.get_age())
+    # String representation
+    def __str__(self):
+        return (f"Account Holder: {self.name}\n"
+                f"Account Number: {self.account_number}\n"
+                f"Account Type: {self.account_type}\n"
+                f"Balance: ₹{self.balance}\n"
+                f"Contact: {self.mobile}, Address: {self.address}\n")
 
-# Using setter
-test.set_age(25)
-print("After setting valid age:", test.get_age())
 
-test.set_age(-5)
-print("After trying invalid age:", test.get_age())
+# -------------------------
+# Example usage
+# -------------------------
+acc1 = Account("Bilal", "9797552622", "Chouadhi", 20, "ACC12345", "Savings", 5000)
+print(acc1)
 
-print("\nString output:\n", test)
+acc1.deposit(2000)
+acc1.withdraw(1000)
+print(acc1.check_balance())
+
+acc2 = Account("Owais", "7070707070", "Polooṇṇda", 19, "ACC67890", "Current", 10000)
+print("\nAnother account:\n", acc2)
